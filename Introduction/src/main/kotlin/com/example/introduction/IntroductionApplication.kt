@@ -2,6 +2,7 @@ package com.example.introduction
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import java.awt.Point
 
 @SpringBootApplication
 class IntroductionApplication
@@ -14,6 +15,10 @@ fun main(args: Array<String>) {
     collectionTest()
     println(describeNumber(10))
     loop()
+    val s = Segment(1,2,3,4);
+    s.nome = "ciao";
+    s.cognome = "peppo";
+    println("${s.nome} , ${s.cognome}");
 
 }
 
@@ -92,4 +97,33 @@ fun loop() {
         println("data[$index] = $value")
 
     for (i in 1..10) println(i)
+}
+
+class Segment (val start: Point, val end: Point) {
+
+
+
+    constructor(x1 : Int, y1 : Int , x2: Int, y2: Int) : this (Point(x1, y1) , Point(x2,y2)) {
+        println(" secondary constructor");
+    }
+
+    constructor() : this (Point(0,0), Point(0,0)) {
+        println("third constructor");
+    }
+
+     var nome: String? = null
+         get() = field.toString()
+        set(value:String?) { field = "$value ecco qua " }
+
+
+    lateinit var cognome : String;
+    init {
+        println("this is the init block")
+        nome = "ciao";
+
+    }
+
+
+
+
 }
