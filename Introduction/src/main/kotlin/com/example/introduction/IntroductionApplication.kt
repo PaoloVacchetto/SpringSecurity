@@ -3,6 +3,7 @@ package com.example.introduction
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import java.awt.Point
+import kotlin.properties.Delegates
 
 @SpringBootApplication
 class IntroductionApplication
@@ -18,7 +19,8 @@ fun main(args: Array<String>) {
     val s = Segment(1,2,3,4);
     s.nome = "ciao";
     s.cognome = "peppo";
-    println("${s.nome} , ${s.cognome}");
+    println("${s.nome} , ${s.cognome}, ${s.samantha}");
+    s.samantha = "Vacchetto";
 
 }
 
@@ -117,6 +119,15 @@ class Segment (val start: Point, val end: Point) {
 
 
     lateinit var cognome : String;
+
+    val lazyValue : String by lazy {
+        "String lazy"
+    }
+
+    var samantha : String by Delegates.observable("<Iacocca>") {
+        prop, old, new -> println("$old -> $new")
+    };
+
     init {
         println("this is the init block")
         nome = "ciao";
