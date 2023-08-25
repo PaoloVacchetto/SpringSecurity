@@ -1,13 +1,13 @@
 package com.example.introduction
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
 import java.awt.Point
 import kotlin.properties.Delegates
 
 @SpringBootApplication
 class IntroductionApplication
 
+data class Point (var x: Int, var y: Int)
 fun main(args: Array<String>) {
     //runApplication<IntroductionApplication>(*args)
     println("Hello World!")
@@ -27,7 +27,19 @@ fun main(args: Array<String>) {
     MySingleton.increment();
 
     println(MySingleton.counter);
+    s.second()
 
+    val p1 = Point(1,1);
+    val p2 = Point(1,1);
+
+    println("${p1 == p2}")
+
+    println(getSuccessfulCode(HttpStatusCode.OK))
+
+}
+
+fun Segment.second() {
+    println("extension functions")
 }
 
 fun describeNumber(num:Int): String {
@@ -150,4 +162,35 @@ object MySingleton  {
     private var _counter = 0
     fun increment() {++ _counter}
     var counter = _counter;
+}
+
+open class Rectangle (var w: Double, var h : Double) {
+    open fun draw() {
+        println("sto disegnando...")
+    }
+}
+
+interface Polygon {
+    fun area (): Double
+}
+
+class Square (l : Double ) : Rectangle(l,l), Polygon {
+    override fun draw() {
+        println("disegno quadraro...")
+    }
+
+    override fun area() = w * h;
+}
+
+
+enum class HttpStatusCode ( val value :Int) {
+    OK(200), CREATED(201), NOT_FOUND(404), ACCESS_DENIED(403), INTERNAL_SERVER_ERROR(500)
+}
+
+fun getSuccessfulCode(code: HttpStatusCode) : Int? = when (code) {
+    HttpStatusCode.OK -> code.value
+    HttpStatusCode.ACCESS_DENIED -> null
+    HttpStatusCode.INTERNAL_SERVER_ERROR-> null
+    HttpStatusCode.CREATED-> code.value
+    HttpStatusCode.NOT_FOUND -> null
 }
