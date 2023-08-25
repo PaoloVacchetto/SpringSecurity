@@ -22,6 +22,12 @@ fun main(args: Array<String>) {
     println("${s.nome} , ${s.cognome}, ${s.samantha}");
     s.samantha = "Vacchetto";
 
+    MySingleton.increment();
+    println(MySingleton.counter);
+    MySingleton.increment();
+
+    println(MySingleton.counter);
+
 }
 
 fun describeNumber(num:Int): String {
@@ -137,4 +143,11 @@ class Segment (val start: Point, val end: Point) {
 
 
 
+}
+
+
+object MySingleton  {
+    private var _counter = 0
+    fun increment() {++ _counter}
+    var counter = _counter;
 }
